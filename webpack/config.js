@@ -9,20 +9,18 @@
  * + @Exporting Module
  */
 
-
 // ---------------------
 // @Loading Dependencies
 // ---------------------
 
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const
   path = require('path'),
   manifest = require('./manifest'),
   devServer = require('./devServer'),
   rules = require('./rules'),
   plugins = require('./plugins');
-
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 
 // ------------------
 // @Entry Point Setup
@@ -32,7 +30,6 @@ const
   entry = [
     path.join(manifest.paths.src, 'assets', 'scripts', manifest.entries.js),
   ];
-
 
 // ---------------
 // @Path Resolving
@@ -47,13 +44,13 @@ const resolve = {
 };
 
 const optimization = {
-  minimize: manifest.MINIFY
+  minimize: manifest.MINIFY,
 };
 
 if (manifest.MINIFY) {
   optimization.minimizer = [
     new CssMinimizerPlugin(),
-    new TerserPlugin()
+    new TerserPlugin(),
   ];
 }
 
@@ -74,7 +71,7 @@ module.exports = {
   module: {
     rules,
   },
-  optimization: optimization,
+  optimization,
   resolve,
   plugins,
   devServer,

@@ -1,5 +1,13 @@
 module.exports = {
-  test    : /\.(js)$/,
-  exclude : /(node_modules|build|dist\/)/,
-  use     : ['babel-loader'],
+  test: /\.(?:js|mjs|cjs)$/,
+  exclude: /node_modules/,
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        ['@babel/preset-env', { targets: 'defaults' }],
+      ],
+      plugins: ['@babel/plugin-proposal-class-properties'],
+    },
+  },
 };
